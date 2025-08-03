@@ -8,9 +8,17 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
   "dependencies": {
     "express": "^5.1.0",
-    "mysql2": "^3.14.2"
-  }
+    "mysql2": "^3.14.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Chann9/todo-saung.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Chann9/todo-saung/issues"
+  },
+  "homepage": "https://github.com/Chann9/todo-saung#readme",
+  "description": ""
 }
