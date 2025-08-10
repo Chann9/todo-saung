@@ -35,6 +35,18 @@ app.get('/users', async function (req,res) {
     <pre>${JSON.stringify(user, null, 2)}</pre>`)
 })
 
+app.get('/kategori', async function (req, res) {
+  const [user] = await connection.query(`SELECT * FROM kategori`);
+  return res.send(`
+    <pre>${JSON.stringify(user, null, 2)}</pre>`)
+})
+
+app.get('/todos', async function (req, res) {
+  const [todos] = await connection.query('SELECT * from todos');
+  return res.send(`
+    <pre>${JSON.stringify(todos, null, 2)}</pre>`)
+})
+
 app.listen(5000, function(){
   console.log ('server is running on http://localhost:5000');
 });

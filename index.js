@@ -40,6 +40,16 @@ app.get('/kategori', async function (req, res) {
     <pre>${JSON.stringify(user, null, 2)}</pre>`)
 })
 
+app.get('/todos', async function (req, res) {
+  const connection = await connectToDb();
+  const [todos] = await connection.query('SELECT * from todos');
+  
+  await connection.end();
+
+  return res.send(`
+    <pre>${JSON.stringify(todos, null, 2)}</pre>`)
+})
+
 // //code baru
 // app.get('/todos-kategori', async function (req, res) {
 //     const connection = await connectToDb();
@@ -51,6 +61,6 @@ app.get('/kategori', async function (req, res) {
 //       <pre>${JSON.stringify(results, null, 2)}</pre>`);
 // })
 
-// app.listen(5000, function(){
-//   console.log ('server is running on http://localhost:5000');
-// });
+app.listen(5000, function(){
+  console.log ('server is running on http://localhost:5000');
+});
