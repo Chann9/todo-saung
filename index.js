@@ -24,13 +24,33 @@ app.get('/users', async function (req,res) {
 app.get('/users/:id', async function (req,res) {
   const connection = await connectToDb();
   const [user] = await connection.query(`SELECT * from users WHERE id = ${req.params.id}`);
-
   await connection.end();
 
   return res.send(`
     <pre>${JSON.stringify(user, null, 2)}</pre>`)
 })
 
-app.listen(5000, function(){
-  console.log ('server is running on http://localhost:5000');
-});
+//
+app.get('/kategori', async function (req, res) {
+  const connection = await connectToDb();
+  const [user] = await connection.query(`SELECT * FROM kategori`);
+  await connection.end();
+
+  return res.send(`
+    <pre>${JSON.stringify(user, null, 2)}</pre>`)
+})
+
+// //code baru
+// app.get('/todos-kategori', async function (req, res) {
+//     const connection = await connectToDb();
+//     const [results] = await getTodosAndkategori(connection);
+    
+//     await connection.end();
+
+//     return res.send(`
+//       <pre>${JSON.stringify(results, null, 2)}</pre>`);
+// })
+
+// app.listen(5000, function(){
+//   console.log ('server is running on http://localhost:5000');
+// });
