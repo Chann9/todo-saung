@@ -97,41 +97,4 @@ where
 
 main();
 
-module.exports = {getTodosAndkategori}; //
-
-// //baru 2
-// async function connectToDatabase() {
-//   try {
-//     const connection = await mysql.createConnection({
-//       host: DB.DB_HOST,
-//       user: DB.DB_USER,
-//       password: DB.DB_PASSWORD,
-//       database: DB.DB_NAME,
-//       port: DB.DB_PORT
-//     });
-//     console.log('Connected to the database');
-//     return connection;
-//   } catch (error) {
-//     console.error('Error connecting to the database:', error);
-//     throw error;
-//   }
-// }
-
-// // Fungsi untuk mendapatkan todos dan kategori
-// async function getTodosAndkategori(connection) {
-//   const sql = `
-//     SELECT 
-//       todos.id AS todo_id,
-//       todos.title AS todo_title,
-//       todos.description,
-//       todos.is_completed,
-//       todos.due_date,
-//       kategori.id AS kategori_id,
-//       kategori.kategori_name AS kategori_name
-//     FROM todos
-//     JOIN kategori ON todos.kategori_id = kategori.id
-//   `;
-
-//   const [rows] = await connection.query(sql);
-//   return rows;
-// }
+module.exports = {getTodosAndkategori};
