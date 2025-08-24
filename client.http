@@ -1,4 +1,4 @@
-GET http://localhost:5000/users
+GET http://localhost:5000/kategori
 
 ###
 
@@ -11,3 +11,37 @@ Content-Type: application/json
     "nickname": "johndoe",
     "password": "123456"
     } 
+
+
+GET http://localhost:5000/todos
+###
+POST http://localhost:5000/
+content-type: application/json
+
+    {
+    "name": "stres tak tertolong",
+    "email": "akukuat@gmail.com",
+    "nickname": "strong",
+    "password": "lupa sumpah"
+    }
+
+GET http://localhost:5000/kategori
+###
+POST http://localhost:5000/kategori
+content-type: application/json
+    {
+    "name": "Pekerjaan Rumah"
+    }
+    
+GET http://localhost:5000/todos
+###
+POST http://localhost:5000/todos
+content-type: application/json
+    {
+    "title": "Mengerjakan tugas",
+    "description": "Mengerjakan tugas dari kampus",
+    "status": "pending",
+    "due_date": "2024-12-31",
+    "category_id": 1,
+    "user_id": 1
+    }
