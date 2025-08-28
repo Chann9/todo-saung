@@ -1,0 +1,29 @@
+GET http://localhost:5000/users
+
+###
+
+GET http://localhost:5000/users/3
+
+##
+POST http://localhost:5000/users
+Content-Type: application/json
+
+    {
+    "name": "janda pirang",
+    "email": "blabla@gmail.Com",
+    "nickname": "johndoe",
+    "password": "123456"
+    } 
+
+###
+DELETE http://localhost:5000/users/4
+
+###
+PUT http://localhost:5000/users/3
+Content-Type: application/json 
+
+    {
+    "name": "janda pirang takut",
+    "nickname": "jandhaa"
+
+    }
