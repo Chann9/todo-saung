@@ -5,7 +5,7 @@ const router = express.Router();
 
 //new category
 router.get('/', async function (req,res) {
-    const categories = await categoryModels.getTodos(req.params.id);
+    const categories = await categoryModels.getCategories();
     return res.json(categories);
 });
 

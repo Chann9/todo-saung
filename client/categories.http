@@ -2,7 +2,7 @@ GET http://localhost:5000/kategori
 
 ###
 
-GET http://localhost:5000/kategori/1
+GET http://localhost:5000/kategori/3
 
 ###
 

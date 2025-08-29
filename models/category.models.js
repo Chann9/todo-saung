@@ -8,7 +8,7 @@ class CategoryModel {
     return categories;
   }
   //new
-  async getCategoryById(id) {
+  async getCategoryById(id) { 
     const connection = await connectToDb();
     const [categories] = await connection.query(
       `SELECT * FROM kategori WHERE id = ?`,
@@ -22,7 +22,7 @@ class CategoryModel {
     const { kategori_name } = data;
     const connection = await connectToDb();
     const [result] = await connection.query(
-      `INSERT INTO ategories (kategori_name) VALUES (?)`,
+      `INSERT INTO kategori (kategori_name,) VALUES (?)`,
       [kategori_name]
     );
     await connection.end();
