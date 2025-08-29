@@ -2,7 +2,7 @@ GET http://localhost:5000/kategori
 
 ###
 
-GET http://localhost:5000/kategori/3
+GET http://localhost:5000/kategori/6
 
 ###
 
@@ -17,7 +17,7 @@ Content-Type: application/json
 DELETE http://localhost:5000/kategori/3
 
 ###
-PUT http://localhost:5000/kategori/1
+PUT http://localhost:5000/kategori/2
 Content-Type: application/json
 
 {
