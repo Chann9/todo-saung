@@ -21,5 +21,5 @@ PUT http://localhost:5000/kategori/2
 Content-Type: application/json
 
 {
-  "kategori_name": "joget",
+  "kategori_name": "joget"
 }
