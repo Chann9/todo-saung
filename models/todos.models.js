@@ -16,11 +16,11 @@ class TodoModel {
   }
 
     async createTodo(data) {
-    const { title, description, status, category_id } = data;
+    const { tittle, description, is_completed, kategori_id, user_id,due_date } = data;
     const connection = await connectToDb();
     const [result] = await connection.query(
-      `INSERT INTO todos (title, description, status, category_id) VALUES (?, ?, ?, ?)`,
-      [title, description, status, category_id]
+      `INSERT INTO todos (tittle, description, is_completed, kategori_id, user_id,due_date) VALUES (?, ?, ?, ?, ?,?)`,
+      [tittle, description, is_completed, kategori_id, user_id,due_date]
     );
     await connection.end();
     return result;

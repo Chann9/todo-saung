@@ -1,12 +1,12 @@
-GET http://localhost:5000/kategori
+GET http://localhost:5000/api/kategori
 
 ###
 
-GET http://localhost:5000/kategori/6
+GET http://localhost:5000/api/kategori/6
 
 ###
 
-POST http://localhost:5000/kategori
+POST http://localhost:5000/api/kategori
 Content-Type: application/json
 
 {
@@ -14,10 +14,10 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:5000/kategori/3
+DELETE http://localhost:5000/api/kategori/3
 
 ###
-PUT http://localhost:5000/kategori/2
+PUT http://localhost:5000/api/kategori/2
 Content-Type: application/json
 
 {

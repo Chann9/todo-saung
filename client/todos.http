@@ -1,23 +1,26 @@
-GET http://localhost:5000/todos
+GET http://localhost:5000/api/todos
 
 ###
-GET http://localhost:5000/todos/3
+GET http://localhost:5000/api/todos/3
 
 ###
-POST http://localhost:5000/todos
+POST http://localhost:5000/api/todos
 Content-Type: application/json
 
 {
-  "title": "Belajar",
-  "user_id": "1"
+  "tittle": "Belajar",
+  "user_id": 1,
+  "due_date": "2024-12-12",
+  "description": "belajar express js",
+  "is_completed": 0
 }
 
 ###
 
-DELETE http://localhost:5000/todos/1
+DELETE http://localhost:5000/api/todos/1
 
 ###
-PUT http://localhost:5000/todos/3
+PUT http://localhost:5000/api/todos/3
 Content-Type: application/json
 
 {

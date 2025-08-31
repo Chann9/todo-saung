@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get("/", async function (req, res) {
   const todos = await todoModels.getTodos(req.params.id);
-  return res.json(todos[0]);
+  return res.json(todos);
 });
 
 router.get("/:id", async (req, res) => {

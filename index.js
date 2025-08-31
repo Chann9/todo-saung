@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const { connectToDb } = require('./models');
 const usersRouter = require('./routers/users');
 
@@ -8,6 +9,7 @@ const todosRouter = require('./routers/todos');
 const app = express();
 
 app.use(express.json());
+app.use(express.static('public'));
 
 app.use("/users", usersRouter);
 
@@ -28,8 +30,15 @@ app.use("/users", usersRouter);
 //   return res.json(todos);
 // })
 
-app.use("/kategori", categoryRouter);
-app.use("/todos", todosRouter);
+
+
+app.use("/api/kategori", categoryRouter);
+app.use("/api/todos", todosRouter);
+
+//frontend
+app.get('/todos', async function(req, res) {
+  return res.sendFile(path.join(__dirname , './views/todos/index.html'))
+})
 
 app.listen(5000, function(){
   console.log ('server is running on http://localhost:5000');
