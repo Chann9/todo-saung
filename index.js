@@ -30,14 +30,17 @@ app.use("/users", usersRouter);
 //   return res.json(todos);
 // })
 
-
-
 app.use("/api/kategori", categoryRouter);
 app.use("/api/todos", todosRouter);
 
-//frontend
+//frontend todos
 app.get('/todos', async function(req, res) {
   return res.sendFile(path.join(__dirname , './views/todos/index.html'))
+})
+
+//buat kategori
+app.get('/kategori', async function(req, res) {
+  return res.sendFile(path.join(__dirname , './views/kategori/index.html'))
 })
 
 app.listen(5000, function(){

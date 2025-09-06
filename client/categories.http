@@ -14,7 +14,7 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:5000/api/kategori/3
+DELETE http://localhost:5000/api/kategori/4
 
 ###
 PUT http://localhost:5000/api/kategori/2
