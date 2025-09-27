@@ -29,10 +29,7 @@ class Usermodel {
     const connection = await connectToDb();
 
     const [result] = await connection.query(
-      `
-                INSERT INTO
-                users (name, email, nickname, password)
-                VALUES (?, ?, ?, ?)`,
+      `INSERT INTO users (name, email, nickname, password) VALUES (?, ?, ?, ?)`,
       [name, email, nickname, password]
     );
 
