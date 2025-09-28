@@ -1,0 +1,35 @@
+GET http://localhost:11434
+
+###
+POST http://localhost:11434/api/generate
+Content-Type: application/json
+
+{
+  "model": "gemma3:1b",
+  "prompt": "tau jokowi ga?",
+  "stream": false
+}
+
+###
+
+POST http://localhost:11434/api/chat
+Content-Type: application/json
+
+{
+  "model": "gemma3:1b",
+  "messages": [
+    {
+      "role": "user",
+      "content": "diberikan data berikut: [{name: 'Andi', age: 25}, {name: 'Budi', age: 30}, {name: 'Citra', age: 22}]"
+    },
+    {
+      "role": "assistant",
+      "content": "Ada yang bisa saya bantu terkait data tersebut?"
+    },
+    {
+      "role": "user",
+      "content": "berapa umur citra?"
+    }
+  ],
+  "stream": false
+}
