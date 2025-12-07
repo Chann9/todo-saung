@@ -2,6 +2,10 @@ const express = require('express');
 const path = require('path');
 const { connectToDb } = require('./models');
 const usersRouter = require('./routers/users');
+const ollamaRouter = require('./routers/ollama');
+const authRouter = require('./routers/auth');
+const cors = require('cors');
+const proxy = require('express-http-proxy');
 
 const categoryRouter = require('./routers/categories');
 const todosRouter = require('./routers/todos');
@@ -9,6 +13,7 @@ const todosRouter = require('./routers/todos');
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 app.use(express.static('public'));
 
 app.use("/users", usersRouter);
@@ -33,6 +38,10 @@ app.use("/users", usersRouter);
 app.use("/api/kategori", categoryRouter);
 app.use("/api/todos", todosRouter);
 
+app.use("/api/ollama", ollamaRouter);
+
+app.use("/api/auth", authRouter);
+
 //frontend todos
 app.get('/todos', async function(req, res) {
   return res.sendFile(path.join(__dirname , './views/todos/index.html'))
@@ -42,6 +51,8 @@ app.get('/todos', async function(req, res) {
 app.get('/kategori', async function(req, res) {
   return res.sendFile(path.join(__dirname , './views/kategori/index.html'))
 })
+
+app.use('/',proxy('localhost:5173'));
 
 app.listen(5000, function(){
   console.log ('server is running on http://localhost:5000');

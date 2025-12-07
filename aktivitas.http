@@ -1,0 +1,37 @@
+GET http://localhost:11434
+
+###
+POST http://localhost:11434/api/generate
+Content-Type: application/json
+
+{
+  "model": "gemma3:1b",
+  "prompt": "nama : tika, ttl : 16 juni 2000, alamat : sukabumi, pekerjaan : mahasiswa, hobby : traveling, cita-cita : jadi miliarder",
+  "stream": false
+}
+
+###
+
+POST http://localhost:11434/api/chat
+Content-Type: application/json
+
+{
+  "model": "gemma3:1b",
+  "messages": [
+    {
+      "role": "user",
+      "content": "aktivitas : [{bangun jam set5}, {sarapan pagi}, {otw kuliah jam set7}, {isoma}, {pulang kuliah jam 6}, {makan malam}, {nugas malam}, {tidur jam 11}]"
+    },
+    {
+      "role": "assistant",
+      "content": "inilah aktivitas saya sehari-hari"
+    },
+    {
+      "role": "user",
+      "content": "tika suka pulang kuliah jam berapa?"
+    }
+  ],
+  "stream": false
+}
+
+###
