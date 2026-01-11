@@ -6,6 +6,7 @@ const ollamaRouter = require('./routers/ollama');
 const authRouter = require('./routers/auth');
 const cors = require('cors');
 const proxy = require('express-http-proxy');
+const chatbotRouter = require('./routers/chatbot');
 
 const categoryRouter = require('./routers/categories');
 const todosRouter = require('./routers/todos');
@@ -41,6 +42,8 @@ app.use("/api/todos", todosRouter);
 app.use("/api/ollama", ollamaRouter);
 
 app.use("/api/auth", authRouter);
+
+app.use("/api/chatbot", chatbotRouter);
 
 //frontend todos
 app.get('/todos', async function(req, res) {

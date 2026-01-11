@@ -1,4 +1,4 @@
-export default function App() {
+export default function LoginPage() {
   const handleForm: React.FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
 
@@ -21,10 +21,10 @@ export default function App() {
     const responseJson = await response.json();
 
     if (response.ok) {
-      alert('login berhasil');
+      alert('Login berhasil');
       window.location.href = '/app/dashboard';
     } else {
-      alert(`login gagal: ${responseJson.message}`);
+      alert(`Login gagal: ${responseJson.message}`);
     }
   };
 
@@ -33,15 +33,15 @@ export default function App() {
       <div className="bg-white/90 backdrop-blur-xl shadow-2xl rounded-3xl p-10 w-full max-w-md border border-white/30">
         <h2 className="text-4xl font-bold text-center text-teal-700 mb-10">SCoding Login</h2>
 
-        <form id="loginForm" onSubmit={handleForm}>
+        <form onSubmit={handleForm} id="loginForm">
           <div className="mb-6">
             <label className="block text-teal-700 font-semibold mb-2">Username</label>
             <input
               type="text"
-              id="username"
-              name="username"
               className="w-full bg-teal-50 border border-teal-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-teal-500 outline-none"
               placeholder="Masukkan username"
+              id="username"
+              name="username"
               required
             />
           </div>
@@ -50,10 +50,10 @@ export default function App() {
             <label className="block text-teal-700 font-semibold mb-2">Password</label>
             <input
               type="password"
-              id="password"
-              name="password"
               className="w-full bg-teal-50 border border-teal-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-teal-500 outline-none"
               placeholder="Masukkan password"
+              id="password"
+              name="password"
               required
             />
           </div>
@@ -64,7 +64,8 @@ export default function App() {
               Remember me
             </label>
             <a href="#" className="text-blue-700 hover:underline font-medium">
-              Forgot password?
+              {' '}
+              Forgot password?{' '}
             </a>
           </div>
 
