@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import ChatbotBox from '../components/chatbotbox';
+import { title } from 'process';
 
 interface ResponseAPI {
   data: { id: number; title: string }[];
@@ -8,6 +9,7 @@ interface ResponseAPI {
 
 export default function ChatbotPage() {
   const [chats, setChats] = useState<ResponseAPI['data']>([]);
+  const [SelectedChat, setSelectedChat] = useState<ResponseAPI['data'][0]>();
 
   const params = useParams();
   const navigate = useNavigate();
@@ -46,6 +48,61 @@ export default function ChatbotPage() {
     navigate('/app/chatbot/' + id);
   };
 
+  const handleOpenEdit = async(id: number) => {
+    //cari chat yg sesuai id
+    const chat = chats.find((c) => c.id === id);
+
+    if (!chat) {
+      return;
+    }
+
+    setSelectedChat(chat);
+  };
+
+  const handleCloseEdit = () => {
+    setSelectedChat(undefined);
+  };
+
+  const handleSubmit = async () => {
+    if (!SelectedChat) return;
+
+    const response = await fetch(`/api/chatbot/chats/${SelectedChat.id}`, {
+      method: 'PUT',
+      body: JSON.stringify({
+        title: SelectedChat.title,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const responseJson = await response.json();
+    if (responseJson.status === true) {
+      handleCloseEdit();
+      const response = await fetch('/api/chatbot/chats');
+      const responseJson: ResponseAPI = await response.json();
+
+      // set data API tersebut ke local state
+      setChats(responseJson.data);
+    };
+  };
+
+  const handleDelete = async (id: number) => {
+    const isConfirm = confirm('Are you sure you want to delete this chat?');
+    if (!isConfirm) {
+      const response = await fetch('/api/chatbot/chats/${id}', {
+        method: 'DELETE',
+      });
+      const responseJson = await response.json();
+      if (responseJson.status) {
+        const response = await fetch('/api/chatbot/chats');
+        const responseJson: ResponseAPI = await response.json();
+        setChats(responseJson.data);
+
+        navigate('/app/chatbot', { replace: true });
+      };
+    }
+  };
+
   // useEffect bertujuan untuk menjalankan logic pertama kali
   // ketika website/page/component dimuat
   useEffect(() => {
@@ -63,6 +120,8 @@ export default function ChatbotPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+      <div className='fixed z-50 inset-0  from-slate-900/flex items-center justify-center pointer-events-none'>
+      </div>
       <div className="w-full h-screen flex">
         {/* Sidebar */}
         <div className="w-80 shrink-0 bg-slate-800/50 backdrop-blur-xl border-r border-slate-700/50 flex flex-col">
@@ -107,13 +166,15 @@ export default function ChatbotPage() {
                         isActive ? 'bg-purple-400' : 'bg-slate-500 group-hover:bg-slate-400'
                       }`}
                     />
-                    <div className="flex-1 min-w-0">
+                    <div className="flex-1 min-w-0 flex justify-between items-center">
                       <p
                         className={`text-sm font-medium truncate ${
                           isActive ? 'text-white' : 'text-slate-300 group-hover:text-white'
                         }`}
                       >
                         {chat.title}
+                        <p></p>
+                        <button onClick={() => handleOpenChat(chat.id)}>🪶</button>
                       </p>
                     </div>
                   </div>
