@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import ChatbotBox from '../components/chatbotbox';
-import { title } from 'process';
-
 interface ResponseAPI {
   data: { id: number; title: string }[];
 }
@@ -88,8 +86,8 @@ export default function ChatbotPage() {
 
   const handleDelete = async (id: number) => {
     const isConfirm = confirm('Are you sure you want to delete this chat?');
-    if (!isConfirm) {
-      const response = await fetch('/api/chatbot/chats/${id}', {
+    if (isConfirm) {
+      const response = await fetch(`/api/chatbot/chats/${id}`, {
         method: 'DELETE',
       });
       const responseJson = await response.json();
@@ -160,12 +158,6 @@ export default function ChatbotPage() {
                     }
                   `}
                 >
-                  <div className="flex items-start gap-3">
-                    <div
-                      className={`w-2 h-2 rounded-full mt-2 shrink-0 ${
-                        isActive ? 'bg-purple-400' : 'bg-slate-500 group-hover:bg-slate-400'
-                      }`}
-                    />
                     <div className="flex-1 min-w-0 flex justify-between items-center">
                       <p
                         className={`text-sm font-medium truncate ${
@@ -173,11 +165,12 @@ export default function ChatbotPage() {
                         }`}
                       >
                         {chat.title}
-                        <p></p>
-                        <button onClick={() => handleOpenChat(chat.id)}>🪶</button>
-                      </p>
+                        </p>
+                        <div className = "flex items-center gap-2">
+                          <button onClick={() => handleOpenEdit(chat.id)}>✏️</button>
+                          <button onClick={() => handleDelete(chat.id)}>🗑️</button>
+                        </div>
                     </div>
-                  </div>
                 </Link>
               );
             })}
