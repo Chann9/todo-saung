@@ -1,62 +1,61 @@
-const express = require('express');
-const path = require('path');
-const { connectToDb } = require('./models');
-const usersRouter = require('./routers/users');
-const ollamaRouter = require('./routers/ollama');
-const authRouter = require('./routers/auth');
+const express = require('express')
+const path = require('path')
+const { connectToDb } = require('./models')
+const userRouter = require('./routes/users')
+const todoRouter = require('./routes/todos')
+const ollamaRouter = require('./routes/ollama')
+const authRouter = require('./routes/auth')
+const chatbotRouter = require('./routes/chatbot')
 const cors = require('cors');
 const proxy = require('express-http-proxy');
-const chatbotRouter = require('./routers/chatbot');
-
-const categoryRouter = require('./routers/categories');
-const todosRouter = require('./routers/todos');
 
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+
+app.use(cors())
+
+// Tujuan: untuk serving static asset (javascript, css, dll)
 app.use(express.static('public'));
 
-app.use("/users", usersRouter);
+// ===== API =====
+app.use('/api/auth', authRouter)
 
-// app.get('/kategori', async function (req, res) {
-//   const connection = await connectToDb();
-//   const [kategori] = await connection.query(`SELECT * FROM kategori`);
-//   await connection.end();
+app.use('/api/users', userRouter);
+app.use('/api/todos', todoRouter);
 
-//   return res.json(kategori);
-// })
+app.get('/api/categories', async function (req, res) {
+  const connection = await connectToDb();
 
-// app.get('/todos', async function (req, res) {
-//   const connection = await connectToDb();
-//   const [todos] = await connection.query('SELECT * from todos');
-  
-//   await connection.end();
+  const [categories] = await connection.query('SELECT * FROM categories');
 
-//   return res.json(todos);
-// })
+  await connection.end();
 
-app.use("/api/kategori", categoryRouter);
-app.use("/api/todos", todosRouter);
-
-app.use("/api/ollama", ollamaRouter);
-
-app.use("/api/auth", authRouter);
-
-app.use("/api/chatbot", chatbotRouter);
-
-//frontend todos
-app.get('/todos', async function(req, res) {
-  return res.sendFile(path.join(__dirname , './views/todos/index.html'))
+  return res.json(categories);
 })
 
-//buat kategori
-app.get('/kategori', async function(req, res) {
-  return res.sendFile(path.join(__dirname , './views/kategori/index.html'))
+app.get('/api/categories/:id', async function (req, res) {
+  const connection = await connectToDb();
+
+  const [categories] = await connection.query(`SELECT * FROM categories WHERE id = ${req.params.id}`);
+
+  await connection.end();
+
+  return res.json(categories);
 })
 
-app.use('/',proxy('localhost:5173'));
+app.use('/api/ollama', ollamaRouter);
 
-app.listen(5000, function(){
-  console.log ('server is running on http://localhost:5000');
+app.use('/api/chatbot', chatbotRouter)
+
+// ===== FRONTEND =====
+
+app.get('/todos', async function (req, res) {
+  return res.sendFile(path.join(__dirname, './views/todos/index.html'))
+});
+
+app.use('/', proxy('localhost:5173'));
+
+app.listen(5000, function () {
+  console.log('Server is running on http://localhost:5000');
 });

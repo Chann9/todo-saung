@@ -3,28 +3,18 @@ import { Link, useParams, useNavigate } from 'react-router-dom';
 import ChatbotBox from '../components/chatbotbox';
 
 interface ResponseAPI {
-  data: {id: number; title: string}[];
+  data: { id: number; title: string }[];
 }
 
 export default function ChatbotPage() {
-  const [chats, setChats] = useState<ResponseAPI['data']> ([
-    // {
-    //   id: '1',
-    //   title: 'Getting Started with AI',
-    // },
-    // {
-    //   id: '2',
-    //   title: 'Project Planning Discussion',
-    // },
-  ]);
+  const [chats, setChats] = useState<ResponseAPI['data']>([]);
 
   const params = useParams();
   const navigate = useNavigate();
 
   const chatId = params.chatId;
 
-  const handleNewChat = () => {
-    const id = Math.random() * 10000;
+  const handleNewChat = async () => {
     const timestamp = new Date().toLocaleTimeString('en-US', {
       hour: '2-digit',
       minute: '2-digit',
@@ -36,18 +26,19 @@ export default function ChatbotPage() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        user_id: 1,
         title: `New Chat ${timestamp}`,
       }),
     });
 
-    const responsejson : {data}
-    const newChat = await response.json();
+    const responseJson: { data: { id: number; title: string } } = await response.json();
+    const id = responseJson.data.id;
+    const title = responseJson.data.title;
+
     setChats((prev) => {
       return [
         {
-          id: id,
-          title: `New Chat ${timestamp}`,
+          id,
+          title,
         },
         ...prev,
       ];
@@ -55,14 +46,19 @@ export default function ChatbotPage() {
     navigate('/app/chatbot/' + id);
   };
 
+  // useEffect bertujuan untuk menjalankan logic pertama kali
+  // ketika website/page/component dimuat
   useEffect(() => {
-    const getdata = async () => {
+    const getData = async () => {
+      // ambil data dari API
       const response = await fetch('/api/chatbot/chats');
-      const responsejson : ResponseAPI = await response.json();
+      const responseJson: ResponseAPI = await response.json();
 
-      setChats(responsejson.data);
+      // set data API tersebut ke local state
+      setChats(responseJson.data);
     };
-    getdata();
+
+    getData();
   }, []);
 
   return (
@@ -82,7 +78,7 @@ export default function ChatbotPage() {
                 />
               </svg>
               New Chat
-            </button>
+            </button >
           </div>
 
           {/* Chat History */}
