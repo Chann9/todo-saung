@@ -2,7 +2,19 @@ GET http://localhost:5000/api/chatbot/chats
 
 ###
 
-GET http://localhost:5000/api/chatbot/chats/1/messages
+GET http://localhost:5000/api/chatbot/chats/1
+
+###
+
+PUT http://localhost:5000/api/chatbot/chats/1
+Content-Type: application/json
+
+{
+  "title": "Chat edit 1"
+}
+
+###
+DELETE http://localhost:5000/api/chatbot/chats/1
 
 ###
 

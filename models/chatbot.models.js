@@ -39,7 +39,7 @@ class ChatbotModel {
   async getChatById(chatId) {
     const connection = await connectToDb();
 
-    const [chats] = await connection.query(
+    const [[chat]] = await connection.query(
       `SELECT * FROM chats WHERE id = ?`,
       [chatId],
     );
@@ -65,7 +65,7 @@ class ChatbotModel {
 
     const [result] = await connection.query(
       `UPDATE chats SET title = ? WHERE id = ?`,
-      [Data,title, chatId],
+      [updateData.title, chatId],
     );
 
     await connection.end();
@@ -84,7 +84,7 @@ class ChatbotModel {
     return result.affectedRows > 0;
   }
 
-  async insertMessageU({ chat_id, type, content }) {
+  async insertMessage({ chat_id, type, content }) {
     const connection = await connectToDb();
 
     const [insertMessage] = await connection.query(
